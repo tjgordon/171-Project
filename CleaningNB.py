@@ -22,7 +22,13 @@ train = pd.read_csv('train_2017.csv')
 #train.columns
 
 
-# In[2]:
+# In[5]:
+
+
+properties.shape
+
+
+# In[7]:
 
 
 
@@ -52,7 +58,7 @@ len(prop_na)
 # Put the proporitons and column names into a df
 na_df = pd.DataFrame({'prop_na' : prop_na, 'column' : properties.columns})
 na_df = na_df.sort_values('prop_na')
-print(na_df)
+na_df
 
 
 # In[3]:
@@ -65,20 +71,50 @@ print(ax)
 
 
 # ## Missing values  
-# Create 2 data sets:  
-# 1. Remove columns with mostly missing and predict the rest  
-# 2. Missing values filled with -99999999999999  
 
-# For NN:  
-# - Remove columns with most missing 
-# - fill rest with -99999999999
+# Create 2 data sets:  
 # 
-# For Xgboost:  
-# - missing values OK  
+# 1. For NN:
+#     - Remove columns with most missing 
+#     - fill rest with -99999999999
 # 
-# pandas fill  
+# 2. For Xgboost:  
+#     - missing values OK  
+# 
 
 # ## 1.
+
+# In[14]:
+
+
+# Choose the threshold for the proportion of NA values beyond which 
+# the column should be dropped
+na_prop_threshold = .3
+
+
+# In[21]:
+
+
+# Get the column names for the columns with enough values
+good_cols = na_df.loc[na_df.prop_na < na_prop_threshold, 'column']
+good_cols
+
+
+# In[27]:
+
+
+# Make a new data set with only those columns
+properties_nn = properties.loc[:, good_cols]
+properties_nn.head()
+
+
+# In[28]:
+
+
+# pandas fill 
+properties_nn.fillna(value=-9999999, inplace=True)
+properties_nn.head()
+
 
 # ## 2.
 
