@@ -42,7 +42,7 @@ def check_na(train):
     return na_df
 
 
-# In[4]:
+# In[ ]:
 
 
 # Read csvs
@@ -57,7 +57,7 @@ elif YEAR == 2017:
 train = train.merge(properties, on = 'parcelid', how = 'left')
 
 
-# In[5]:
+# In[ ]:
 
 
 print('BEFORE')
@@ -80,7 +80,7 @@ print(check_na(train))
 # - Logistic: discrete, categorical
 # 
 
-# In[6]:
+# In[ ]:
 
 
 continuous = ['bathroomcnt',
@@ -146,7 +146,7 @@ categorical = ['airconditioningtypeid',
 ]
 
 
-# In[7]:
+# In[ ]:
 
 
 # test linear reg
@@ -166,13 +166,44 @@ lr = LogisticRegression(solver=solver,
 # In[ ]:
 
 
+properties = properties.loc[1:100000,]
+prop2 = pd.get_dummies(properties)
+prop2.dtypes
+
+
+# In[ ]:
+
+
 # xtrain is the dataset without rows which are missing a value for 
 # the variable in question, 
 # and ytrain is that value
 variable = 'bedroomcnt'
-xtrain_isna = properties.loc[:, variable].isnull()
-xtrain = properties.drop(variable, axis=1).loc[np.logical_not(xtrain_isna),]
-ytrain = properties.loc[np.logical_not(xtrain_isna), variable]
+xtrain_isna = prop2.loc[:, variable].isnull()
+xtrain = prop2.drop(variable, axis=1).loc[np.logical_not(xtrain_isna),]
+ytrain = prop2.loc[np.logical_not(xtrain_isna), variable]
+
+
+# In[ ]:
+
+
+xtrain.head()
+
+
+# In[ ]:
+
+
+ytrain.head()
+
+
+# In[ ]:
+
+
+# [var for var in discrete + categorical]
+
+
+# In[ ]:
+
+
 lr.fit(xtrain, ytrain)
 
 
