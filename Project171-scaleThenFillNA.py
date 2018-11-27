@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 # Imports
@@ -16,7 +16,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
 
-# In[4]:
+# In[2]:
 
 
 # Defines
@@ -28,7 +28,7 @@ PREPROCESSING = 'MinMax'
 KFOLD_SPLITS = 10
 
 
-# In[5]:
+# In[3]:
 
 
 # Functions
@@ -42,7 +42,7 @@ def check_na(train):
     return na_df
 
 
-# In[6]:
+# In[4]:
 
 
 # Read csvs
@@ -57,7 +57,7 @@ elif YEAR == 2017:
 train = train.merge(properties, on = 'parcelid', how = 'left')
 
 
-# In[7]:
+# In[5]:
 
 
 print('BEFORE')
@@ -68,7 +68,7 @@ print('AFTER')
 print(check_na(train))
 
 
-# In[8]:
+# In[6]:
 
 
 
@@ -83,7 +83,7 @@ train['transactiondate'] = np.asarray(date_converted)
 train = train.drop(columns=['propertycountylandusecode', 'propertyzoningdesc'])
 
 
-# In[22]:
+# In[7]:
 
 
 # Preprocessing
@@ -94,29 +94,34 @@ def minmaxscaler_dropna(x):
     # https://stackoverflow.com/questions/39758449/normalise-between-0-and-1-ignoring-nan
     return((x - x.min()) / (x.max() - x.min()))
 
+# TODO: use another scale function, like normalize, that has mean 0
+
+def normalize_scaler(x):
+    return((x - np.mean(x)) / np.std(x))
+
 
 if PREPROCESSING == 'MinMax':
 #     scaler = MinMaxScaler()
 #     scaler.fit(x)
 #     x = scaler.transform(x)
-    train2 = [minmaxscaler_dropna(train[col]) for col in train.columns]
+    train2 = [normalize_scaler(train[col]) for col in train.columns]
 
 
 
-# In[26]:
+# In[8]:
 
 
 type(train2)
 
 
-# In[29]:
+# In[9]:
 
 
 train2 = pd.DataFrame(train2).transpose()
 train2.head()
 
 
-# In[30]:
+# In[10]:
 
 
 y = train2.values[:,1]
@@ -149,14 +154,14 @@ x = train2.values[:,2:]
 # x2
 
 
-# In[33]:
+# In[11]:
 
 
 # Replace all NAs with number defined in FILL_NA
 train = train2.fillna(FILL_NA)
 
 
-# In[10]:
+# In[12]:
 
 
 # KFolds
@@ -172,7 +177,7 @@ x_train, x_test = x[train_index_array[MY_INDEX]], x[test_index_array[MY_INDEX]]
 y_train, y_test = y[train_index_array[MY_INDEX]], y[test_index_array[MY_INDEX]]
 
 
-# In[11]:
+# In[ ]:
 
 
 model = tf.keras.models.Sequential([

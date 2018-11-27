@@ -12589,7 +12589,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Imports</span>
@@ -12611,7 +12611,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Defines</span>
@@ -12630,7 +12630,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Functions</span>
@@ -12651,7 +12651,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Read csvs</span>
@@ -12673,7 +12673,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;BEFORE&#39;</span><span class="p">)</span>
@@ -12803,7 +12803,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Convert transactiondate strings into floats</span>
@@ -12824,7 +12824,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Preprocessing</span>
@@ -12835,12 +12835,17 @@ AFTER
     <span class="c1"># https://stackoverflow.com/questions/39758449/normalise-between-0-and-1-ignoring-nan</span>
     <span class="k">return</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span>
 
+<span class="c1"># TODO: use another scale function, like normalize, that has mean 0</span>
+
+<span class="k">def</span> <span class="nf">normalize_scaler</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
 
 <span class="k">if</span> <span class="n">PREPROCESSING</span> <span class="o">==</span> <span class="s1">&#39;MinMax&#39;</span><span class="p">:</span>
 <span class="c1">#     scaler = MinMaxScaler()</span>
 <span class="c1">#     scaler.fit(x)</span>
 <span class="c1">#     x = scaler.transform(x)</span>
-    <span class="n">train2</span> <span class="o">=</span> <span class="p">[</span><span class="n">minmaxscaler_dropna</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">train2</span> <span class="o">=</span> <span class="p">[</span><span class="n">normalize_scaler</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -12850,7 +12855,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">train2</span><span class="p">)</span>
@@ -12866,7 +12871,7 @@ AFTER
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[26]:</div>
+<div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -12883,7 +12888,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">train2</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
@@ -12900,7 +12905,7 @@ AFTER
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[29]:</div>
+<div class="prompt output_prompt">Out[9]:</div>
 
 
 
@@ -12949,123 +12954,123 @@ AFTER
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.022842</td>
-      <td>0.471952</td>
-      <td>0.0</td>
-      <td>0.194444</td>
-      <td>0.2500</td>
+      <td>0.366531</td>
+      <td>0.051730</td>
+      <td>-1.926531</td>
+      <td>1.205452</td>
+      <td>0.830162</td>
       <td>NaN</td>
-      <td>0.147059</td>
-      <td>0.083690</td>
-      <td>0.136324</td>
-      <td>0.297297</td>
+      <td>1.208154</td>
+      <td>1.378122</td>
+      <td>1.433853</td>
+      <td>0.490952</td>
       <td>...</td>
-      <td>0.003280</td>
-      <td>0.000000</td>
+      <td>0.103151</td>
+      <td>-0.522822</td>
       <td>NaN</td>
-      <td>0.906250</td>
-      <td>0.042521</td>
-      <td>0.020837</td>
+      <td>1.235173</td>
+      <td>1.286546</td>
+      <td>0.815443</td>
       <td>NaN</td>
-      <td>0.010978</td>
-      <td>0.018741</td>
-      <td>5.196126e-04</td>
+      <td>0.479819</td>
+      <td>0.657738</td>
+      <td>0.061276</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.040395</td>
-      <td>0.474979</td>
-      <td>0.0</td>
-      <td>0.055556</td>
-      <td>0.1250</td>
+      <td>1.149597</td>
+      <td>0.227427</td>
+      <td>-1.926531</td>
+      <td>-1.302762</td>
+      <td>-0.923497</td>
       <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.037649</td>
-      <td>0.061327</td>
-      <td>1.000000</td>
+      <td>-1.343692</td>
+      <td>-0.335276</td>
+      <td>-0.316033</td>
+      <td>2.997325</td>
       <td>...</td>
-      <td>0.003678</td>
-      <td>0.333333</td>
+      <td>0.135048</td>
+      <td>1.247925</td>
       <td>NaN</td>
-      <td>0.744792</td>
-      <td>0.007701</td>
-      <td>0.009437</td>
+      <td>-0.067730</td>
+      <td>-0.439570</td>
+      <td>-0.039998</td>
       <td>NaN</td>
-      <td>0.007678</td>
-      <td>0.009636</td>
-      <td>1.748451e-03</td>
+      <td>0.151908</td>
+      <td>-0.042403</td>
+      <td>0.400003</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.022133</td>
-      <td>0.469914</td>
-      <td>0.0</td>
-      <td>0.111111</td>
-      <td>0.1875</td>
+      <td>0.334907</td>
+      <td>-0.066548</td>
+      <td>-1.926531</td>
+      <td>-0.299476</td>
+      <td>-0.046668</td>
       <td>NaN</td>
-      <td>0.058824</td>
-      <td>0.031398</td>
-      <td>0.051144</td>
-      <td>0.297297</td>
+      <td>-0.322954</td>
+      <td>-0.567921</td>
+      <td>-0.553633</td>
+      <td>0.490952</td>
       <td>...</td>
-      <td>0.003609</td>
-      <td>0.400000</td>
+      <td>0.129512</td>
+      <td>1.602074</td>
       <td>NaN</td>
-      <td>0.718750</td>
-      <td>0.007463</td>
-      <td>0.011492</td>
+      <td>-0.277876</td>
+      <td>-0.451337</td>
+      <td>0.114145</td>
       <td>NaN</td>
-      <td>0.009792</td>
-      <td>0.011027</td>
-      <td>5.186377e-04</td>
+      <td>0.361944</td>
+      <td>0.064537</td>
+      <td>0.061007</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.009339</td>
-      <td>0.458945</td>
-      <td>0.0</td>
-      <td>0.166667</td>
-      <td>0.2500</td>
-      <td>0.636364</td>
-      <td>0.117647</td>
-      <td>0.063303</td>
-      <td>0.103115</td>
-      <td>0.000000</td>
+      <td>-0.235855</td>
+      <td>-0.703185</td>
+      <td>-1.926531</td>
+      <td>0.703809</td>
+      <td>0.830162</td>
+      <td>0.851442</td>
+      <td>0.697785</td>
+      <td>0.619406</td>
+      <td>0.658980</td>
+      <td>-0.569436</td>
       <td>...</td>
-      <td>0.001146</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.760417</td>
-      <td>0.009532</td>
-      <td>0.002938</td>
+      <td>-0.067666</td>
+      <td>-0.522822</td>
+      <td>-0.094285</td>
+      <td>0.058357</td>
+      <td>-0.348784</td>
+      <td>-0.527701</td>
       <td>NaN</td>
-      <td>0.000737</td>
-      <td>0.002996</td>
-      <td>4.708050e-06</td>
+      <td>-0.537680</td>
+      <td>-0.552963</td>
+      <td>-0.080656</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.001117</td>
-      <td>0.470071</td>
-      <td>0.0</td>
-      <td>0.166667</td>
-      <td>0.1875</td>
-      <td>0.636364</td>
-      <td>0.117647</td>
-      <td>0.033341</td>
-      <td>0.054309</td>
-      <td>0.000000</td>
+      <td>-0.602665</td>
+      <td>-0.057433</td>
+      <td>-1.926531</td>
+      <td>0.703809</td>
+      <td>-0.046668</td>
+      <td>0.851442</td>
+      <td>0.697785</td>
+      <td>-0.495613</td>
+      <td>-0.479784</td>
+      <td>-0.569436</td>
       <td>...</td>
-      <td>0.001544</td>
-      <td>0.000000</td>
-      <td>0.0</td>
-      <td>0.729167</td>
-      <td>0.006447</td>
-      <td>0.002414</td>
+      <td>-0.035770</td>
+      <td>-0.522822</td>
+      <td>-0.094285</td>
+      <td>-0.193818</td>
+      <td>-0.501716</td>
+      <td>-0.567065</td>
       <td>NaN</td>
-      <td>0.000931</td>
-      <td>0.002581</td>
-      <td>5.321334e-07</td>
+      <td>-0.518397</td>
+      <td>-0.584897</td>
+      <td>-0.081808</td>
     </tr>
   </tbody>
 </table>
@@ -13081,7 +13086,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">train2</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
@@ -13135,7 +13140,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Replace all NAs with number defined in FILL_NA</span>
@@ -13149,7 +13154,7 @@ AFTER
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># KFolds</span>
@@ -13199,7 +13204,7 @@ TRAIN: [    0     1     2 ... 77610 77611 77612] TEST: [    9    15    18 ... 77
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
@@ -13226,1020 +13231,23 @@ TRAIN: [    0     1     2 ... 77610 77611 77612] TEST: [    9    15    18 ... 77
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Epoch 1/500
-69852/69852 [==============================] - 3s 47us/step - loss: nan
+69852/69852 [==============================] - 2s 35us/step - loss: nan
 Epoch 2/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
+69852/69852 [==============================] - 2s 31us/step - loss: nan
 Epoch 3/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
+69852/69852 [==============================] - 2s 30us/step - loss: nan
 Epoch 4/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
+69852/69852 [==============================] - 2s 36us/step - loss: nan
 Epoch 5/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
+69852/69852 [==============================] - 2s 35us/step - loss: nan
 Epoch 6/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
+69852/69852 [==============================] - 3s 46us/step - loss: nan
 Epoch 7/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
+69852/69852 [==============================] - 3s 39us/step - loss: nan
 Epoch 8/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 9/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 10/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 11/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 12/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 13/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 14/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 15/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 16/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 17/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 18/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 19/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 20/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 21/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 22/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 23/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 24/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 25/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 26/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 27/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 28/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 29/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 30/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 31/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 32/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 33/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 34/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan 0s
-Epoch 35/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 36/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 37/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 38/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 39/500
-69852/69852 [==============================] - 2s 36us/step - loss: nan
-Epoch 40/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 41/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 42/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 43/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 44/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 45/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 46/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 47/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 48/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 49/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 50/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 51/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 52/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 53/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 54/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 55/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 56/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 57/500
-69852/69852 [==============================] - 3s 48us/step - loss: nan
-Epoch 58/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 59/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 60/500
-69852/69852 [==============================] - 4s 61us/step - loss: nan
-Epoch 61/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 62/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 63/500
-69852/69852 [==============================] - 3s 50us/step - loss: nan
-Epoch 64/500
-69852/69852 [==============================] - 3s 50us/step - loss: nan
-Epoch 65/500
 69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 66/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 67/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 68/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 69/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 70/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 71/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 72/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 73/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 74/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 75/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 76/500
-69852/69852 [==============================] - 4s 51us/step - loss: nan
-Epoch 77/500
-69852/69852 [==============================] - 5s 76us/step - loss: nan
-Epoch 78/500
-69852/69852 [==============================] - 6s 79us/step - loss: nan
-Epoch 79/500
-69852/69852 [==============================] - 6s 81us/step - loss: nan
-Epoch 80/500
-69852/69852 [==============================] - 6s 86us/step - loss: nan
-Epoch 81/500
-69852/69852 [==============================] - 4s 58us/step - loss: nan
-Epoch 82/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 83/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 84/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 85/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 86/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 87/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 88/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 89/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 90/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 91/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 92/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 93/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 94/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 95/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 96/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 97/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 98/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 99/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 100/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 101/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 102/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 103/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 104/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 105/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 106/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 107/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 108/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 109/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 110/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 111/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 112/500
-69852/69852 [==============================] - 2s 36us/step - loss: nan
-Epoch 113/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 114/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 115/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 116/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 117/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 118/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 119/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 120/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 121/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 122/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 123/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 124/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 125/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 126/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 127/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 128/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 129/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 130/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 131/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 132/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 133/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 134/500
-69852/69852 [==============================] - 4s 51us/step - loss: nan
-Epoch 135/500
-69852/69852 [==============================] - 3s 45us/step - loss: nan
-Epoch 136/500
-69852/69852 [==============================] - 3s 45us/step - loss: nan
-Epoch 137/500
-69852/69852 [==============================] - 4s 57us/step - loss: nan
-Epoch 138/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 139/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 140/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 141/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 142/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 143/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 144/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 145/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 146/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 147/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 148/500
-69852/69852 [==============================] - 2s 36us/step - loss: nan
-Epoch 149/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 150/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 151/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 152/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 153/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 154/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 155/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 156/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 157/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 158/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 159/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 160/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 161/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 162/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 163/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 164/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 165/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 166/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 167/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 168/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 169/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 170/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 171/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 172/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 173/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 174/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 175/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 176/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 177/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 178/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 179/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 180/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 181/500
-69852/69852 [==============================] - 3s 48us/step - loss: nan
-Epoch 182/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 183/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 184/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 185/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 186/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 187/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 188/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 189/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 190/500
-69852/69852 [==============================] - 3s 48us/step - loss: nan
-Epoch 191/500
-69852/69852 [==============================] - 4s 59us/step - loss: nan
-Epoch 192/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 193/500
-69852/69852 [==============================] - 3s 50us/step - loss: nan
-Epoch 194/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 195/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 196/500
-69852/69852 [==============================] - 4s 54us/step - loss: nan
-Epoch 197/500
-69852/69852 [==============================] - 4s 56us/step - loss: nan
-Epoch 198/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 199/500
-69852/69852 [==============================] - 4s 56us/step - loss: nan
-Epoch 200/500
-69852/69852 [==============================] - 4s 62us/step - loss: nan
-Epoch 201/500
-69852/69852 [==============================] - 3s 49us/step - loss: nan
-Epoch 202/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 203/500
-69852/69852 [==============================] - 3s 42us/step - loss: nan
-Epoch 204/500
-69852/69852 [==============================] - 4s 53us/step - loss: nan
-Epoch 205/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 206/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 207/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 208/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 209/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 210/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 211/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 212/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 213/500
-69852/69852 [==============================] - 3s 42us/step - loss: nan
-Epoch 214/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 215/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 216/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 217/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 218/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 219/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 220/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 221/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 222/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 223/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 224/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 225/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 226/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 227/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 228/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 229/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 230/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 231/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 232/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 233/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 234/500
-69852/69852 [==============================] - 3s 42us/step - loss: nan
-Epoch 235/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 236/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 237/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 238/500
-69852/69852 [==============================] - 3s 47us/step - loss: nan
-Epoch 239/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 240/500
-69852/69852 [==============================] - 4s 57us/step - loss: nan
-Epoch 241/500
-69852/69852 [==============================] - 5s 76us/step - loss: nan
-Epoch 242/500
-69852/69852 [==============================] - 5s 74us/step - loss: nan
-Epoch 243/500
-69852/69852 [==============================] - 5s 76us/step - loss: nan
-Epoch 244/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 245/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 246/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 247/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 248/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 249/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 250/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 251/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 252/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 253/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 254/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 255/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 256/500
-69852/69852 [==============================] - 3s 42us/step - loss: nan
-Epoch 257/500
-69852/69852 [==============================] - 4s 56us/step - loss: nan
-Epoch 258/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 259/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 260/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 261/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 262/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 263/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 264/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 265/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 266/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 267/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 268/500
-69852/69852 [==============================] - 2s 36us/step - loss: nan
-Epoch 269/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 270/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 271/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 272/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 273/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 274/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 275/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 276/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 277/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 278/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 279/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 280/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 281/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 282/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 283/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 284/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 285/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 286/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 287/500
-69852/69852 [==============================] - 4s 61us/step - loss: nan
-Epoch 288/500
-69852/69852 [==============================] - 4s 54us/step - loss: nan
-Epoch 289/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan 
-Epoch 290/500
-69852/69852 [==============================] - 3s 45us/step - loss: nan
-Epoch 291/500
-69852/69852 [==============================] - 3s 50us/step - loss: nan
-Epoch 292/500
-69852/69852 [==============================] - 3s 45us/step - loss: nan
-Epoch 293/500
-69852/69852 [==============================] - 4s 52us/step - loss: nan
-Epoch 294/500
-69852/69852 [==============================] - 4s 62us/step - loss: nan
-Epoch 295/500
-69852/69852 [==============================] - 4s 51us/step - loss: nan
-Epoch 296/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 297/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 298/500
-69852/69852 [==============================] - 3s 42us/step - loss: nan
-Epoch 299/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 300/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 301/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 302/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 303/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 304/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 305/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 306/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 307/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 308/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 309/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 310/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 311/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 312/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 313/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 314/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 315/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 316/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 317/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 318/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 319/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 320/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 321/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 322/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 323/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 324/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 325/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 326/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 327/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 328/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 329/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 330/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 331/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 332/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 333/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 334/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 335/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 336/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 337/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 338/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 339/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 340/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 341/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 342/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 343/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 344/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 345/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 346/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 347/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 348/500
-69852/69852 [==============================] - 2s 24us/step - loss: nan
-Epoch 349/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 350/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 351/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 352/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 353/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 354/500
-69852/69852 [==============================] - 4s 55us/step - loss: nan
-Epoch 355/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 356/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 357/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 358/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 359/500
-69852/69852 [==============================] - 3s 39us/step - loss: nan
-Epoch 360/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 361/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 362/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 363/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 364/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 365/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 366/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 367/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 368/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 369/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 370/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 371/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 372/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 373/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 374/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 375/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 376/500
-69852/69852 [==============================] - 3s 37us/step - loss: nan
-Epoch 377/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 378/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 379/500
-69852/69852 [==============================] - 4s 56us/step - loss: nan
-Epoch 380/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 381/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 382/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 383/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 384/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 385/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 386/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 387/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 388/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 389/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 390/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 391/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 392/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 393/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 394/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 395/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 396/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 397/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 398/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 399/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 400/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 401/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 402/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 403/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 404/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 405/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 406/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 407/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 408/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 409/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 410/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 411/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 412/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 413/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 414/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 415/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 416/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 417/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 418/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 419/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 420/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 421/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 422/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 423/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 424/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 425/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 426/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 427/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 428/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 429/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 430/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 431/500
-69852/69852 [==============================] - 3s 44us/step - loss: nan
-Epoch 432/500
-69852/69852 [==============================] - 3s 43us/step - loss: nan
-Epoch 433/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 434/500
-69852/69852 [==============================] - 4s 60us/step - loss: nan
-Epoch 435/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 436/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 437/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 438/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 439/500
-69852/69852 [==============================] - 3s 48us/step - loss: nan
-Epoch 440/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 441/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 442/500
-69852/69852 [==============================] - 3s 40us/step - loss: nan
-Epoch 443/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 444/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 445/500
-69852/69852 [==============================] - 2s 34us/step - loss: nan
-Epoch 446/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 447/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 448/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 449/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 450/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 451/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 452/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 453/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 454/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 455/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 456/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 457/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 458/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 459/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 460/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 461/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 462/500
-69852/69852 [==============================] - 3s 38us/step - loss: nan
-Epoch 463/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 464/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 465/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 466/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 467/500
-69852/69852 [==============================] - 2s 30us/step - loss: nan
-Epoch 468/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 469/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 470/500
-69852/69852 [==============================] - 2s 32us/step - loss: nan
-Epoch 471/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 472/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 473/500
-69852/69852 [==============================] - 3s 36us/step - loss: nan
-Epoch 474/500
-69852/69852 [==============================] - 3s 45us/step - loss: nan
-Epoch 475/500
-69852/69852 [==============================] - 3s 46us/step - loss: nan
-Epoch 476/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 477/500
-69852/69852 [==============================] - 3s 41us/step - loss: nan
-Epoch 478/500
-69852/69852 [==============================] - 2s 33us/step - loss: nan
-Epoch 479/500
-69852/69852 [==============================] - 2s 28us/step - loss: nan
-Epoch 480/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 481/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 482/500
-69852/69852 [==============================] - 2s 25us/step - loss: nan
-Epoch 483/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 484/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 485/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 486/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 487/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 488/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 489/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 490/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 491/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 492/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 493/500
-69852/69852 [==============================] - 2s 29us/step - loss: nan
-Epoch 494/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 495/500
-69852/69852 [==============================] - 2s 31us/step - loss: nan
-Epoch 496/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 497/500
-69852/69852 [==============================] - 2s 26us/step - loss: nan
-Epoch 498/500
-69852/69852 [==============================] - 2s 27us/step - loss: nan
-Epoch 499/500
-69852/69852 [==============================] - 2s 35us/step - loss: nan
-Epoch 500/500
-69852/69852 [==============================] - 2s 36us/step - loss: nan
 </pre>
 </div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[11]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;tensorflow.python.keras.callbacks.History at 0x7f24e196f7f0&gt;</pre>
-</div>
-
 </div>
 
 </div>
